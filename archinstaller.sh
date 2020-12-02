@@ -77,6 +77,7 @@ pacman -S nano
 nano  /etc/locale.gen
 wait
 locale-gen
+clear
 localectl list-locales
 touch /etc/locale.conf
 read -p "system locale to use from above:? " LOCALE
@@ -110,9 +111,13 @@ mount /dev/$BOOTPAR /boot/EFI
 grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
 grub-mkconfig -o /boot/grub/grub.cfg ;;
 esac
+echo
 read -p "Now installing networkmanager so when you reboot you'll have an internet connection: Press Enter"
 pacman -S networkmanager
 systemctl enable NetworkManager
+clear
+echo -e "\e[92mGREAT! Arch SEEMS to be installed SUCCESSFULLY!, now just reboot\e[0m"
+read -p "in the prompt now type exit and reboot: Press Enter"
 fi
 ##Thanks to DT Youtube channel:DistroTube
 ##https://wiki.archlinux.org/index.php/installation_guide
