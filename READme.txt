@@ -58,7 +58,14 @@ sda <Your hard drive
      /boot
         |
         /EFI
-        
+To get this script working just boot up the arch iso when you get a prompt (root@archiso~ #)
+input pacman -Sy to Synchronize package database. then
+pacman -S git to install git to download this installer
+git clone https://www.github.com/Parralogic/archinstaller
+cd archinstaller
+chmod +x archinstaller
+./archinstaller
+
 NOTE! IF installation was successfull, you just have a base install of arch, no desktop environment, or windowmanager, but no bloat
 just look up what kind of desktop environment you wish to install and good luck.
         
