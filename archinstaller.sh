@@ -70,14 +70,17 @@ echo
 ln -sf /usr/share/zoneinfo/$REGION/$CITY /etc/localtime
 hwclock --systohc
 clear
-echo "Fourth Localization, We need to edit /etc/locale.gen and uncomment en_US.UTF-8 UTF-8 and other needed locales:"
+echo "Fourth Localization, We need to edit /etc/locale.gen and uncomment en_US.UTF-8 UTF-8"
+echo "and other needed locales:"
 read -p "Press Enter: nano editor will be installed."
 pacman -S nano
 nano  /etc/locale.gen
 wait
 locale-gen
+localectl list-locales
 touch /etc/locale.conf
-echo "LANG=en_US.UTF-8" > /etc/locale.conf
+read -p "system locale to use from above:? " LOCALE
+echo "LANG=$LOCALE" >> /etc/locale.conf
 echo "What do you want to name this computer aka hostname," 
 read -p "used to distinguish you on the network:? " HOSTNAME
 echo "$HOSTNAME" > /etc/hostname
@@ -89,8 +92,8 @@ mkinitcpio -P
 clear
 echo "root password"
 passwd
-echo "Next lets install the grub bootloader: if you created an efi partition type efi"
-read -p "To install the necessary packages for an efi setup : " EFI
+echo "Next lets install the grub bootloader: if you created an efi partition, type efi"
+read -p "to install the necessary packages for an efi setup : " EFI
 case $EFI in
 ""|" " )
 pacman -S grub
@@ -101,6 +104,7 @@ grub-mkconfig -o /boot/grub/grub.cfg ;;
 efi )
 pacman -S grub efibootmgr dosfstools os-prober mtools
 mkdir /boot/EFI
+lsblk
 read -p "whats the boot/efi partition:? " BOOTPAR
 mount /dev/$BOOTPAR /boot/EFI
 grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
