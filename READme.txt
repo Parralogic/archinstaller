@@ -53,7 +53,7 @@ sda <Your hard drive
 |
 |__
    |
-   sda3 <Your boot/efi partition, inside that parttion 2 directory will be created[/boot]inside that directory[/EFI] will be created.
+   sda3 <Your boot/efi partition, inside that partition 2 directory will be created[/boot]inside that directory[/EFI] will be created.
      | 
      /boot
         |
