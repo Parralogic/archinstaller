@@ -63,19 +63,20 @@ sda <Your hard drive
 in OLD hardware no uefi support but sufficient RAM, Ill just create one large 100GB ext4 partition, thats all!
 sda-sda1 use all 100GB 
 
-in OLD hardware no uefi support but not sufficient RAM Ex: 512 or 1GB or 2GB or 3GB, Ill create a 6GB swap partition and the rest 
-for the root partition, thats all!
+in OLD hardware no uefi support but not sufficient RAM Ex: 512 or 1GB or 2GB or 3GB, Ill create a 6GB swap- 
+partition and the rest for the root partition formated to ext4, thats all!
 sda-sda1|6GBswap    sda2|94GBroot partition
  |__________________|
 
 in NEW hardware with everything sufficient BUT not dual booting, Ill do the same as the old hardware, disable secure boot switch to legacy
-from UEFI and just use all 100GB for root
+from UEFI and just use all 100GB for the root partition formated to ext4
 sda-sda1 use all 100GB
 
 in NEW hardware dual booting with windows and sufficient in RAM.., Ill login to windows resize the windows partition to 50GB that
-leaves 50GB for linux, once booted into the installer Ill create 550mb boot/efi partition and the rest for the root partition,IF its for a
-laptop ill alocate 2GB of swap space just in case. NOTE! dualbooting is more complex and you will or might render your system unbootable
-backup your shit! hahaha
+leaves 50GB for linux, once booted into the installer Ill create 550mb boot/efi partition and the rest for the root partition ext4 formated, IF its for a
+laptop ill alocate 2GB of swap space just in case. NOTE! dualbooting is more complex and you will or might render your system unbootable,
+backup your shit! hahaha; If planning on dual booting, do all the research you can on that subject before attempting! because ALL and
+I mean ALL systems are different, what might work on one system might not work for you, even if you have the exact setup.
 sda-windowsRECOVERYpartition|sda2WINDOWS38GB        sda3|2GBswap         sda4|48GBroot partition
  ||___________________________________________________|                    |
  |_________________________________________________________________________|
