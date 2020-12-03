@@ -7,7 +7,7 @@ read -p "This installer script has 2 phases, is this your first time running the
 case $YN in
 y|Y )
 echo "This script will guide you to install Arch-Linux:"
-read -p "Press ANY key to continue WARNING STILL IN THE WORKS"
+read -p "Press Enter key to continue WARNING STILL IN THE WORKS"
 clear
 echo "First lets select your keyboard layout, only worry about the (NAME) minus the extension of (.map.gz)"
 echo "So if your keyboard layout is in /usr/share/kbd/keymaps/i386/azerty/fr-latin1.map.gz"
