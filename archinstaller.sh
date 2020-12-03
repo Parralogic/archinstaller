@@ -4,7 +4,8 @@
 #Last Modified: 12/02/2020
 clear
 read -p "This installer script has 2 phases, is this your first time running the script [y/n]? " YN
-if [[ $YN = [yY]* ]]; then
+case $YN in
+y|Y )
 echo "This script will guide you to install Arch-Linux:"
 read -p "Press ANY key to continue WARNING STILL IN THE WORKS"
 clear
@@ -55,8 +56,8 @@ echo "Now chrooting into the new installation, to finalize the install."
 echo "Script is going to terminate re-execute ./archinstaller.sh to continue"
 read -p "archinstaller.sh will be copied to the new root partition: Press Enter"
 cp archinstaller.sh /mnt
-arch-chroot /mnt
-else
+arch-chroot /mnt ;;
+n|N )
 read -p "Third lets set your timezone: Press Enter"
 echo
 ls /usr/share/zoneinfo/
@@ -118,6 +119,9 @@ systemctl enable NetworkManager
 clear
 echo -e "\e[92mGREAT! Arch SEEMS to be installed SUCCESSFULLY!, now just reboot\e[0m"
 read -p "in the prompt now type exit and reboot: Press Enter"
-fi
+;;
+*) echo ONLY [y,Y] [n,N]; sleep 3 ; exit 1 ;;
+esac
+
 ##Thanks to DT Youtube channel:DistroTube
 ##https://wiki.archlinux.org/index.php/installation_guide
