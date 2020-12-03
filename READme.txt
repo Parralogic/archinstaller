@@ -30,7 +30,7 @@ sda <Your hard drive
    |
  sda2 <Your swap partition/ "virtual memory"
  
-NOTE! You can create the partitions in any order you like so you can creat the swap partition first, but
+NOTE! You can create the partitions in any order you like so you can create the swap partition first, but
 if you do, take note that the swap partition will be now sda1 not sda2!! 
 
 Creating a  boot/efi partition is used to boot up the linux kernel with modern uefi bios (GPT/UEFI),
@@ -58,12 +58,34 @@ sda <Your hard drive
      /boot
         |
         /EFI
+
+  RECAP:If you have a hard drive thats 100GB: What I would do is partition the drive like so-
+in OLD hardware no uefi support but sufficient RAM, Ill just create one large 100GB ext4 partition, thats all!
+sda-sda1 use all 100GB 
+
+in OLD hardware no uefi support but not sufficient RAM Ex: 512 or 1GB or 2GB or 3GB, Ill create a 6GB swap partition and the rest 
+for the root partition, thats all!
+sda-sda1|6GBswap    sda2|94GBroot partition
+ |__________________|
+
+in NEW hardware with everything sufficient BUT not dual booting, Ill do the same as the old hardware, disable secure boot switch to legacy
+from UEFI and just use all 100GB for root
+sda-sda1 use all 100GB
+
+in NEW hardware dual booting with windows and sufficient in RAM.., Ill login to windows resize the windows partition to 50GB that
+leaves 50GB for linux, once booted into the installer Ill create 550mb boot/efi partition and the rest for the root partition,IF its for a
+laptop ill alocate 2GB of swap space just in case. NOTE! dualbooting is more complex and you will or might render your system unbootable
+backup your shit! hahaha
+sda-windowsRECOVERYpartition|sda2WINDOWS38GB        sda3|2GBswap         sda4|48GBroot partition
+ ||___________________________________________________|                    |
+ |_________________________________________________________________________|
+
 To get this script working just boot up the arch iso when you get a prompt (root@archiso~ #)
 input pacman -Sy to Synchronize package database. then
 pacman -S git to install git to download this installer
 git clone https://www.github.com/Parralogic/archinstaller
 cd archinstaller
-chmod +x archinstaller
+chmod +x archinstaller #if not already executable
 ./archinstaller
 
 NOTE! IF installation was successfull, you just have a base install of arch, no desktop environment, or windowmanager, but no bloat
