@@ -1,7 +1,7 @@
 #!/bin/bash
 #Creator: David Parra-Sandoval
-#Date: 11/01/2020
-#Last Modified: 11/02/2020
+#Date: 12/01/2020
+#Last Modified: 12/02/2020
 clear
 read -p "This installer script has 2 phases, is this your first time running the script [y/n]? " YN
 if [[ $YN = [yY]* ]]; then
