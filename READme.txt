@@ -91,7 +91,41 @@ chmod +x archinstaller.sh #if not already executable
 
 NOTE! IF installation was successfull, you just have a base install of arch, no desktop environment, or windowmanager, but no bloat
 just look up what kind of desktop environment you wish to install and good luck.
-        
+
+TIPS: After installation is successful please dont exit and reboot, it is recommaned in my experience!
+to install a terminal emulator such as xterm, so just pacman -S xterm
+then install the sudo package so you can execute root privilages like so pacman -S sudo
+edit the sudo file after installation like so nano /etc/sudoers
+scroll to the bottom you'll find 
+
+## User privilege specification
+##
+root ALL=(ALL) ALL
+
+## Uncomment to allow members of group wheel to execute any command
+#%wheel ALL=(ALL) ALL            <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<UNCOMMENT that line
+
+## Same thing without a password
+# %wheel ALL=(ALL) NOPASSWD: ALL   <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Not this line just for security because you may execute a script that might currupt your system
+                                                                    when you execute sudo "whatever command" it will not ask for your password!!
+## Uncomment to allow members of group sudo to execute any command
+# %sudo ALL=(ALL) ALL
+
+save and exit nano
+
+also add a user and add it to the wheel group like so 
+useradd -m -N -G wheel desiredusername
+
+^useradd:command to add user ^-m:means create a home directory ^-N:means dont create a group using your user name
+^-G:means add the user to groups in this case wheel:wheel means admin privilages
+^desiredusername:means the name you wanna use 
+
+RECAP: if I was to add a user I would execute useradd -m -N -G wheel david
+then ill create a password for my login like so- passwd david then enter
+
+to add your user name in other groups if needed just execute gpasswd -a yourusername groupname
+
+
         
         
         
