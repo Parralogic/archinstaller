@@ -83,6 +83,7 @@ localectl list-locales
 touch /etc/locale.conf
 read -p "system locale to use from above:? " LOCALE
 echo "LANG=$LOCALE" >> /etc/locale.conf
+clear
 echo "What do you want to name this computer aka hostname;" 
 read -p "used to distinguish you on the network:? " HOSTNAME
 echo "$HOSTNAME" > /etc/hostname
