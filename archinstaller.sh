@@ -95,6 +95,7 @@ mkinitcpio -P
 clear
 echo "set root password"
 passwd
+echo
 echo "Lastly let's install the grub bootloader; if you created an efi partition, type efi below or just ENTER."
 read -p "efi will install the necessary packages for an efi setup: " EFI
 case $EFI in
