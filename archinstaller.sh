@@ -43,20 +43,23 @@ case $BOOTPAR in
 ""|" " ) echo "No boot/efi created!"; sleep 3 ;;
 sd* ) 
 mkfs.fat -F32 /dev/$BOOTPAR
+;;
 esac
-mkfs.ext4 /dev/$ROOTPAR
+echo "Format the root partition using which filesystem:? [ext4 most common fs]"
+select FS in ext2 ext4 xfs zfs btrfs; do
+mkfs.$FS /dev/$ROOTPAR
 wait
-clear
 mount /dev/$ROOTPAR /mnt
 pacstrap /mnt base linux linux-firmware
 wait
 genfstab -U /mnt >> /mnt/etc/fstab
+done
 clear
 echo "Now chrooting into the new installation; to finalize the install."
 echo "Script is going to terminate re-execute ./archinstaller.sh to continue"
 read -p "archinstaller.sh will be copied to the new root partition: Press Enter"
 cp archinstaller.sh /mnt
-arch-chroot /mnt ;;
+arch-chroot /mnt 
 n|N )
 read -p "Third lets set your timezone: Press Enter"
 echo
