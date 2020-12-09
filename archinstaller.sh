@@ -59,7 +59,7 @@ echo "Now chrooting into the new installation; to finalize the install."
 echo "Script is going to terminate re-execute ./archinstaller.sh to continue"
 read -p "archinstaller.sh will be copied to the new root partition: Press Enter"
 cp archinstaller.sh /mnt
-arch-chroot /mnt 
+arch-chroot /mnt ;;
 n|N )
 read -p "Third lets set your timezone: Press Enter"
 echo
