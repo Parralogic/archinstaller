@@ -53,6 +53,7 @@ mount /dev/$ROOTPAR /mnt
 pacstrap /mnt base linux linux-firmware
 wait
 genfstab -U /mnt >> /mnt/etc/fstab
+break
 done
 clear
 echo "Now chrooting into the new installation; to finalize the install."
