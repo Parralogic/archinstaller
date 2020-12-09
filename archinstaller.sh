@@ -47,14 +47,22 @@ mkfs.fat -F32 /dev/$BOOTPAR
 esac
 echo "Format the root partition using which filesystem:? [ext4 most common fs]"
 select FS in ext2 ext4 xfs zfs btrfs; do
-mkfs.$FS /dev/$ROOTPAR
-wait
+case $FS in
+ext*)
+mkfs.$FS /dev/$ROOTPAR; break ;;
+xfs) 
+mkfs.$FS -f /dev/$ROOTPAR; break;;
+zfs)
+echo "To use zfs visit:"
+echo "https://wiki.archlinux.org/index.php/Install_Arch_Linux_on_ZFS"; exit 1 ;;
+btrfs)
+mkfs.btrfs -f /dev/$ROOTPAR; break ;;
+esac
+done
 mount /dev/$ROOTPAR /mnt
 pacstrap /mnt base linux linux-firmware
 wait
 genfstab -U /mnt >> /mnt/etc/fstab
-break
-done
 clear
 echo "Now chrooting into the new installation; to finalize the install."
 echo "Script is going to terminate re-execute ./archinstaller.sh to continue"
