@@ -110,7 +110,8 @@ clear
 echo -e "\e[91mset root password\e[00m"
 passwd
 echo
-echo -e "Lastly let's install the \e[95mgrub bootloader\e[00m; if you created an efi partition, type \e[91mefi\e[00m below or just press ENTER."
+echo -e "Lastly let's install the \e[95mgrub bootloader\e[00m; if you created an efi partition, type \e[91mefi\e[00m below" 
+echo "or just press ENTER."
 read -p "efi will install the necessary packages for an efi setup: " EFI
 case $EFI in
 ""|" " )
@@ -131,8 +132,9 @@ mount /dev/$BOOTPAR /boot/EFI
 grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
 grub-mkconfig -o /boot/grub/grub.cfg ;;
 esac
-echo
+echo -e "\e[91m"
 read -p "Now installing networkmanager so when you reboot you'll have an internet connection: Press Enter"
+echo -e "\e[00m"
 pacman -S networkmanager
 systemctl enable NetworkManager
 clear
