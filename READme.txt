@@ -89,6 +89,7 @@ cd archinstaller
 chmod +x archinstaller.sh #if not already executable
 ./archinstaller.sh
 
+NOTE!:Phase 2 is after script terminates and your chrooted in to your base install, run the script again this time with n,N.
 NOTE! IF installation was successfull, you just have a base install of arch, no desktop environment, or windowmanager, but no bloat
 just look up what kind of desktop environment you wish to install and good luck.
 
