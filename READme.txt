@@ -104,11 +104,12 @@ scroll to the bottom you'll find
 root ALL=(ALL) ALL
 
 ## Uncomment to allow members of group wheel to execute any command
-#%wheel ALL=(ALL) ALL            <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<UNCOMMENT that line
+#%wheel ALL=(ALL) ALL            <<<<<<<<<<<<<<<<<<<<UNCOMMENT that line
 
 ## Same thing without a password
-# %wheel ALL=(ALL) NOPASSWD: ALL   <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Not this line just for security because you may execute a script that might currupt your system
-                                                                    when you execute sudo "whatever command" it will not ask for your password!!
+# %wheel ALL=(ALL) NOPASSWD: ALL   <<<<<<<<<<<<<<<Not this line just for security because you may execute a script 
+                                            that might currupt your system when you execute sudo "whatever command" 
+                                            it will not ask for your password!!
 ## Uncomment to allow members of group sudo to execute any command
 # %sudo ALL=(ALL) ALL
 
