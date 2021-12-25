@@ -1,13 +1,14 @@
 #!/bin/bash
 #Creator: David Parra-Sandoval
 #Date: 12/01/2020
-#Last Modified: 12/09/2020
+#Last Modified: 12/24/2021
 clear
 read -p "This installer script has 2 phases, is this your first time running the script [y/n]? " YN
 case $YN in
 y|Y )
 echo -e "This script will guide you to install \e[34mArch-Linux\e[00m."
 echo -e "Press Enter key to continue: \e[91mWARNING use at your own risk!\e[00m"
+read
 clear
 echo "First lets select your keyboard layout, only worry about the (NAME) minus the extension of (.map.gz)"
 echo "So if your keyboard layout is in /usr/share/kbd/keymaps/i386/azerty/fr-latin1.map.gz"
