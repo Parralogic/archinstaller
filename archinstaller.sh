@@ -3,6 +3,14 @@
 #Date: 12/01/2020
 #Last Modified: 02/03/2024
 clear
+
+#Just Incase
+pacman -Sy
+pacman-key --init
+pacman-key --populate
+pacman -Sy archlinux-keyring
+pacman -Sy
+#
 read -p "This installer script has 2 phases, is this your first time running the script [y/n]? " YN
 case $YN in
 y|Y )

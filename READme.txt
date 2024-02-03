@@ -86,6 +86,10 @@ sda-windowsRECOVERYpartition|sda2WINDOWS38GB        sda3|2GBswap         sda4|48
 
 To get this script working just boot up the arch iso when you get a prompt (root@archiso~ #)
 input pacman -Sy to Synchronize package database. then
+pacman-key --init
+pacman-key --populate
+pacman -Sy archlinux-keyring
+pacman -Sy
 pacman -S git to install git to download this installer
 git clone https://www.github.com/Parralogic/archinstaller
 cd archinstaller
