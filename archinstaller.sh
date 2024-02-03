@@ -93,6 +93,7 @@ echo "ls /mnt/boot"
 ls /mnt/boot
 echo "Nothing should be in that bitch! HAHAHAHAHhahah"
 read -p "PRESS Enter to Proceed!"
+pacstrap /mnt base linux linux-firmware &> /dev/null
 genfstab -U /mnt >> /mnt/etc/fstab
 echo
 echo -e "Now \e[91mchrooting\e[00m into the new installation; to finalize the install."
