@@ -12,7 +12,7 @@ pacman-key --populate
 pacman -S archlinux-keyring --noconfirm
 pacman -Sy
 #
-read -p "\e[92mThis installer script has 2 phases, is this your first time running the script [y/n]? " YN
+echo -en "\e[92mThis installer script has 2 phases, is this your first time running the script [y/n]? "; read YN
 case $YN in
 y|Y )
 echo -e "This script will guide you to install \e[34mArch-Linux\e[00m."
