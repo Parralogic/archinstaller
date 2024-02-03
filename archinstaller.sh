@@ -12,11 +12,12 @@ pacman-key --populate
 pacman -S archlinux-keyring --noconfirm
 pacman -Sy
 #
-read -p "This installer script has 2 phases, is this your first time running the script [y/n]? " YN
+read -p "\e[92mThis installer script has 2 phases, is this your first time running the script [y/n]? " YN
 case $YN in
 y|Y )
 echo -e "This script will guide you to install \e[34mArch-Linux\e[00m."
 echo -e "Press Enter key to continue: \e[91mWARNING use at your own risk!\e[00m"
+echo "Ctrl+c to Quit/Terminate this bitch!"
 read
 clear
 echo "First lets select your keyboard layout, only worry about the (NAME) minus the extension of (.map.gz)"
