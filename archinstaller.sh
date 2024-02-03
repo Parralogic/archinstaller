@@ -1,7 +1,7 @@
 #!/bin/bash
 #Creator: David Parra-Sandoval
 #Date: 12/01/2020
-#Last Modified: 12/24/2021
+#Last Modified: 02/03/2024
 clear
 read -p "This installer script has 2 phases, is this your first time running the script [y/n]? " YN
 case $YN in
@@ -28,7 +28,6 @@ lsblk
 echo
 read -p "Hard drive to use:? Ex. sda or sdb .. etc :? " DRIVE
 cfdisk /dev/$DRIVE
-wait
 echo -e "\e[33mNOTE! Only use sda1 sda2 sdb1 sdb2...etc not /dev/sda1 /dev/sdb2...etc below\e[00m"
 read -p "Whats the root partition:? " ROOTPAR
 read -p "Whats the swap partition if any:? " SWAPPAR
@@ -62,7 +61,7 @@ esac
 done
 mount /dev/$ROOTPAR /mnt
 pacstrap /mnt base linux linux-firmware
-wait
+mount /dev/$BOOTPAR /mnt/boot
 genfstab -U /mnt >> /mnt/etc/fstab
 clear
 echo -e "Now \e[91mchrooting\e[00m into the new installation; to finalize the install."
@@ -89,7 +88,6 @@ echo "uncomment en_US.UTF-8 UTF-8 and other needed locales."
 read -p "Press Enter: nano editor will be installed."
 pacman -S nano
 nano  /etc/locale.gen
-wait
 locale-gen
 clear
 echo -e "\e[92m"
@@ -127,10 +125,10 @@ grub-mkconfig -o /boot/grub/grub.cfg ;;
 efi )
 pacman -S grub efibootmgr dosfstools os-prober mtools
 mkdir /boot/EFI
-lsblk
-read -p "whats the boot/efi partition:? " BOOTPAR
-mount /dev/$BOOTPAR /boot/EFI
-grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
+#lsblk
+#read -p "whats the boot/efi partition:? " BOOTPAR
+#mount /dev/$BOOTPAR /boot/EFI
+grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck --efi-directory=/boot/EFI
 grub-mkconfig -o /boot/grub/grub.cfg ;;
 esac
 echo -e "\e[91m"
@@ -144,6 +142,3 @@ read -p "If you read the READme.txt you know what to do; in prompt just input ex
 ;;
 *) echo -e "\e[91mONLY! [y,Y] [n,N]\e[00m"; sleep 3 ; exit 1 ;;
 esac
-
-##Thanks to DT Youtube channel:DistroTube
-##https://wiki.archlinux.org/index.php/installation_guide

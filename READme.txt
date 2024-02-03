@@ -2,6 +2,9 @@ This is a very simple script to install the official
 archlinux base and kernel; to download the iso
 visit https://www.archlinux.org/download/
 
+UPDATE! 02/03/2024
+Fixed the UEFI/EFI installation.
+
 To install in "general" any linux distro all you need to do
 is format your hard drive with a single root partition, everything will be 
 alocated in that partition "aka" the linux tree file structure, not to be confused with the type 
