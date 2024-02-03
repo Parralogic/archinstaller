@@ -43,15 +43,15 @@ read -p "Whats the swap partition if any:? " SWAPPAR
 read -p "Whats the boot or efi partition if any:? " BOOTPAR
 case $SWAPPAR in
 ""|" " ) echo "No swap created!"; sleep 3 ;;
-sd* ) 
+sd* | vda*)
 mkswap /dev/$SWAPPAR
 swapon /dev/$SWAPPAR
 ;;
 esac
 case $BOOTPAR in
 ""|" " ) echo "No boot/efi created!"; sleep 3 ;;
-sd* ) 
-mkfs.fat -F32 /dev/$BOOTPAR
+sd* | vda*)
+mkfs.fat -F 32 /dev/$BOOTPAR
 ;;
 esac
 echo "Format the root partition using which filesystem:? [ext4 most common fs]"
@@ -69,30 +69,45 @@ mkfs.btrfs -f /dev/$ROOTPAR; break ;;
 esac
 done
 mount /dev/$ROOTPAR /mnt
+echo "Now INSTALLING base,linux,linux-firmware in the /dev/$ROOTPAR root partition."
+echo "With pacstrap /mnt base linux linux-firmware"
+read -p "PRESS Enter To Execute that Shit!"
 pacstrap /mnt base linux linux-firmware
+echo
+echo "Listing BASE install in the new Fucking ROOT partition /dev/$ROOTPAR"
+echo "Under the mount point /mnt"
+ls /mnt
 mount /dev/$BOOTPAR /mnt/boot
 sleep 4
+echo "Listing BOOT/EFI partition /dev/$BOOTPAR; Under /mnt/boot"
+ls /mnt/boot
+echo "Nothing should be in that bitch! HAHAHAHAHhahah"
+read -p "PRESS Enter to Proceed!"
 genfstab -U /mnt >> /mnt/etc/fstab
 echo
 echo -e "Now \e[91mchrooting\e[00m into the new installation; to finalize the install."
 echo "Script is going to terminate re-execute ./archinstaller.sh to continue"
 read -p "archinstaller.sh will be copied to the new root partition: Press Enter"
 cp -v archinstaller.sh /mnt
-sleep 2
-arch-chroot /mnt ;;
+ls /mnt
+sleep 5
+arch-chroot /mnt;;
 n|N )
 read -p "Third lets set your timezone: Press Enter"
 echo
 ls /usr/share/zoneinfo/
 echo
+echo "Type that shit! in; no select loop here! HAHAHAH"
 read -p "Whats your Region:? " REGION
 echo
 ls /usr/share/zoneinfo/$REGION
 echo
+echo "Same Fucking! shit Type. hahaha"
 read -p "Whats your City:? " CITY
 echo
 ln -sf /usr/share/zoneinfo/$REGION/$CITY /etc/localtime
 hwclock --systohc
+sleep 3
 clear
 echo -e "Fourth Localization, We need to edit \e[91m/etc/locale.gen\e[00m"
 echo "uncomment en_US.UTF-8 UTF-8 and other needed locales."
@@ -100,22 +115,23 @@ read -p "Press Enter: nano editor will be installed."
 pacman -S nano --noconfirm
 nano  /etc/locale.gen
 locale-gen
-clear
 echo -e "\e[92m"
 localectl
 echo -e "\e[00m"
 touch /etc/locale.conf
 read -p "system locale to use from above:? " LOCALE
 echo "LANG=$LOCALE" >> /etc/locale.conf
-sleep 3
 echo "What do you want to name this computer aka hostname;" 
 read -p "used to distinguish you on the network:? " HOSTNAME
 echo "$HOSTNAME" > /etc/hostname
 touch /etc/hosts
+echo "127.0.0.1	localhost  /etc/hosts"
+echo "::1		localhost  /etc/hosts"
+echo "127.0.1.1	$HOSTNAME.localdomain	$HOSTNAME  /etc/hosts"
 echo "127.0.0.1	localhost" >> /etc/hosts
 echo "::1		localhost" >> /etc/hosts
 echo "127.0.1.1	$HOSTNAME.localdomain	$HOSTNAME" >> /etc/hosts
-sllep 4
+sleep 4
 mkinitcpio -P
 echo
 echo -e "\e[91mset root password\e[00m"
