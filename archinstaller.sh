@@ -69,6 +69,9 @@ btrfs)
 mkfs.btrfs -f /dev/$ROOTPAR; break ;;
 esac
 done
+echo "Now mounting the ROOT partition"
+echo "mount /dev/$ROOTPAR /mnt" && sleep 2
+echo
 mount /dev/$ROOTPAR /mnt
 echo "Now INSTALLING base,linux,linux-firmware in the /dev/$ROOTPAR root partition."
 echo "With pacstrap /mnt base linux linux-firmware"
@@ -78,9 +81,15 @@ echo
 echo "Listing BASE install in the new Fucking ROOT partition /dev/$ROOTPAR"
 echo "Under the mount point /mnt"
 ls /mnt
+echo
+echo "Now mounting the BOOT/EFI partition"
+echo "mount /dev/$BOOTPAR /mnt/boot" && sleep 2
 mount /dev/$BOOTPAR /mnt/boot
-sleep 4
+sleep 1
 echo "Listing BOOT/EFI partition /dev/$BOOTPAR; Under /mnt/boot"
+ls /mnt/boot
+echo
+echo "ls /mnt/boot"
 ls /mnt/boot
 echo "Nothing should be in that bitch! HAHAHAHAHhahah"
 read -p "PRESS Enter to Proceed!"
@@ -88,10 +97,16 @@ genfstab -U /mnt >> /mnt/etc/fstab
 echo
 echo -e "Now \e[91mchrooting\e[00m into the new installation; to finalize the install."
 echo "Script is going to terminate re-execute ./archinstaller.sh to continue"
-read -p "archinstaller.sh will be copied to the new root partition: Press Enter"
+read -p "archinstaller.sh will be copied to the new ROOT partition: Press Enter"
 cp -v archinstaller.sh /mnt
 ls /mnt
-sleep 5
+echo . && sleep .50
+echo .. && sleep .50
+echo ... && sleep .50
+echo .... && sleep .50
+echo ..... && sleep .50
+echo "arch-chroot /mnt"
+sleep 1
 arch-chroot /mnt;;
 n|N )
 read -p "Third lets set your timezone: Press Enter"
@@ -112,6 +127,7 @@ sleep 3
 clear
 echo -e "Fourth Localization, We need to edit \e[91m/etc/locale.gen\e[00m"
 echo "uncomment en_US.UTF-8 UTF-8 and other needed locales."
+echo "Press Ctrl+o then just Enter to SAVE it, Then Ctrl+x To QUIT/Exit that Shit!"
 read -p "Press Enter: nano editor will be installed."
 pacman -S nano --noconfirm
 nano  /etc/locale.gen
@@ -153,10 +169,12 @@ grub-install /dev/$DRIVE
 grub-mkconfig -o /boot/grub/grub.cfg ;;
 efi )
 pacman -S grub efibootmgr dosfstools os-prober mtools
+echo "Making a Fucking Directory of EFI in the boot/efi Partition. So whatever your boot/efi Partition Was?; Shit I dont know....Yeah; Right inside that!"
+echo "mkdir /boot/EFI"
 mkdir /boot/EFI
-#lsblk
-#read -p "whats the boot/efi partition:? " BOOTPAR
-#mount /dev/$BOOTPAR /boot/EFI
+echo "ls boot/"
+ls boot/
+sleep 3
 grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck --efi-directory=/boot/EFI
 grub-mkconfig -o /boot/grub/grub.cfg ;;
 esac
