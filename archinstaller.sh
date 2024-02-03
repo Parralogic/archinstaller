@@ -118,7 +118,7 @@ echo -e "\e[91mset root password\e[00m"
 passwd
 echo
 echo -e "Lastly let's install the \e[95mgrub bootloader\e[00m; if you created an efi partition, type \e[91mefi\e[00m below" 
-echo "or just press ENTER."
+echo "or just press ENTER; for regular BIOS/MBR Shit!"
 read -p "efi will install the necessary packages for an efi setup: " EFI
 case $EFI in
 ""|" " )
