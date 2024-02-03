@@ -6,9 +6,10 @@ clear
 
 #Just Incase
 pacman -Sy
+pacman -S git --noconfirm
 pacman-key --init
 pacman-key --populate
-pacman -Sy archlinux-keyring
+pacman -S archlinux-keyring --noconfirm
 pacman -Sy
 #
 read -p "This installer script has 2 phases, is this your first time running the script [y/n]? " YN
@@ -70,12 +71,14 @@ done
 mount /dev/$ROOTPAR /mnt
 pacstrap /mnt base linux linux-firmware
 mount /dev/$BOOTPAR /mnt/boot
+sleep 4
 genfstab -U /mnt >> /mnt/etc/fstab
-clear
+echo
 echo -e "Now \e[91mchrooting\e[00m into the new installation; to finalize the install."
 echo "Script is going to terminate re-execute ./archinstaller.sh to continue"
 read -p "archinstaller.sh will be copied to the new root partition: Press Enter"
-cp archinstaller.sh /mnt
+cp -v archinstaller.sh /mnt
+sleep 2
 arch-chroot /mnt ;;
 n|N )
 read -p "Third lets set your timezone: Press Enter"
@@ -94,17 +97,17 @@ clear
 echo -e "Fourth Localization, We need to edit \e[91m/etc/locale.gen\e[00m"
 echo "uncomment en_US.UTF-8 UTF-8 and other needed locales."
 read -p "Press Enter: nano editor will be installed."
-pacman -S nano
+pacman -S nano --noconfirm
 nano  /etc/locale.gen
 locale-gen
 clear
 echo -e "\e[92m"
-localectl list-locales
+localectl
 echo -e "\e[00m"
 touch /etc/locale.conf
 read -p "system locale to use from above:? " LOCALE
 echo "LANG=$LOCALE" >> /etc/locale.conf
-clear
+sleep 3
 echo "What do you want to name this computer aka hostname;" 
 read -p "used to distinguish you on the network:? " HOSTNAME
 echo "$HOSTNAME" > /etc/hostname
@@ -112,8 +115,9 @@ touch /etc/hosts
 echo "127.0.0.1	localhost" >> /etc/hosts
 echo "::1		localhost" >> /etc/hosts
 echo "127.0.1.1	$HOSTNAME.localdomain	$HOSTNAME" >> /etc/hosts
+sllep 4
 mkinitcpio -P
-clear
+echo
 echo -e "\e[91mset root password\e[00m"
 passwd
 echo
@@ -142,7 +146,7 @@ esac
 echo -e "\e[91m"
 read -p "Now installing networkmanager so when you reboot you'll have an internet connection: Press Enter"
 echo -e "\e[00m"
-pacman -S networkmanager
+pacman -S networkmanager --noconfirm
 systemctl enable NetworkManager
 clear
 echo -e "\e[92mGREAT! Arch SEEMS to be installed SUCCESSFULLY!, read the READme.txt\e[0m"
