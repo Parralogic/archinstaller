@@ -96,7 +96,7 @@ echo "ls /mnt/boot"
 ls /mnt/boot
 echo "Nothing should be in that bitch! HAHAHAHAHhahah"
 read -p "PRESS Enter to Proceed!"
-pacstrap /mnt base linux linux-firmware &> /dev/null &
+pacstrap /mnt base linux linux-firmware &> /dev/null
 genfstab -U /mnt >> /mnt/etc/fstab
 echo
 echo -e "Now \e[91mchrooting\e[00m into the new installation; to finalize the install."
@@ -146,9 +146,9 @@ echo "What do you want to name this computer aka hostname;"
 read -p "used to distinguish you on the network:? " HOSTNAME
 echo "$HOSTNAME" > /etc/hostname
 touch /etc/hosts
-echo "127.0.0.1	localhost  /etc/hosts"
-echo "::1		localhost  /etc/hosts"
-echo "127.0.1.1	$HOSTNAME.localdomain	$HOSTNAME  /etc/hosts"
+echo "127.0.0.1	localhost >> /etc/hosts"
+echo "::1		localhost >> /etc/hosts"
+echo "127.0.1.1	$HOSTNAME.localdomain	$HOSTNAME >> /etc/hosts"
 echo "127.0.0.1	localhost" >> /etc/hosts
 echo "::1		localhost" >> /etc/hosts
 echo "127.0.1.1	$HOSTNAME.localdomain	$HOSTNAME" >> /etc/hosts

@@ -4,6 +4,7 @@ visit https://www.archlinux.org/download/
 
 UPDATE! 02/03/2024
 Fixed the UEFI/EFI installation.
+and Just a COOL-ASS Script!; that I had to modify, to what it is now.
 
 To install in "general" any linux distro all you need to do
 is format your hard drive with a single root partition, everything will be 
