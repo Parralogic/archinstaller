@@ -4,6 +4,7 @@
 #Last Modified: 02/03/2024
 clear
 
+if [[ -z $(command -v git) ]]; then
 #Just Incase
 pacman -Sy
 pacman -S git --noconfirm
@@ -12,6 +13,8 @@ pacman-key --populate
 pacman -S archlinux-keyring --noconfirm
 pacman -Sy
 #
+else echo "...........................MY-ARCH_LINUX-SCRIPT....................................."
+fi
 echo -en "\e[92mThis installer script has 2 phases, is this your first time running the script [y/n]? "; read YN
 case $YN in
 y|Y )
@@ -93,7 +96,7 @@ echo "ls /mnt/boot"
 ls /mnt/boot
 echo "Nothing should be in that bitch! HAHAHAHAHhahah"
 read -p "PRESS Enter to Proceed!"
-pacstrap /mnt base linux linux-firmware &> /dev/null
+pacstrap /mnt base linux linux-firmware &> /dev/null &
 genfstab -U /mnt >> /mnt/etc/fstab
 echo
 echo -e "Now \e[91mchrooting\e[00m into the new installation; to finalize the install."
